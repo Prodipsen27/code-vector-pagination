@@ -3,6 +3,11 @@ import { getProducts } from './products.js';
 
 const router = Router();
 
+// Health check endpoint
+router.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 router.get('/products', async (req, res) => {
   try {
     const { limit, cursor, category } = req.query;
