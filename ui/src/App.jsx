@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import './index.css';
 
-const API_URL = 'https://code-vector-pagination-api.onrender.com';
+// Use relative path in production (since they share the same URL)
+// Use localhost:3000 in local dev mode
+const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3000';
 const CATEGORIES = ['All', 'Electronics', 'Clothing', 'Books', 'Home', 'Toys', 'Sports'];
 
 function App() {
