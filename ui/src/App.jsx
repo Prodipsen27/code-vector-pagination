@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './index.css';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://code-vector-pagination-api.onrender.com';
 const CATEGORIES = ['All', 'Electronics', 'Clothing', 'Books', 'Home', 'Toys', 'Sports'];
 
 function App() {
