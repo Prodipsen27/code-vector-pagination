@@ -81,7 +81,7 @@ function App() {
           <div className="card" key={product.id}>
             <div className="card-header">
               <span className="category-badge">{product.category}</span>
-              <span className="price">${product.price}</span>
+              <span className="price">₹{product.price}</span>
             </div>
             <div className="product-name">{product.name}</div>
             <div className="meta">
