@@ -24,8 +24,9 @@ app.use('/', routes);
 const uiPath = path.join(__dirname, '../ui/dist');
 app.use(express.static(uiPath));
 
-// Catch-all route to serve index.html for React Router (if needed)
-app.get('*', (req, res) => {
+// Catch-all route to serve index.html for React Router
+// Using app.use avoids Express 5 wildcard routing errors
+app.use((req, res) => {
   res.sendFile(path.join(uiPath, 'index.html'));
 });
 
