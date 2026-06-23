@@ -1,0 +1,28 @@
+Submission Details:
+
+To: siddharth@codevector.in
+Subject: CodeVector Internship Task Submission
+
+Include the following in your email:
+1. The live public hosted URL (from Render)
+2. Your GitHub repo link
+3. The note below
+4. (Optional) Your exported AI chat
+
+---------------------------------------------------
+DRAFT NOTE FOR EMAIL:
+
+What I chose and why:
+* Node.js & Express: Kept the backend lightweight and minimal.
+* PostgreSQL (Supabase) & postgres.js: Instead of using an ORM like Prisma, I intentionally used raw SQL with postgres.js. ORMs often obscure the logic required for true multi-column cursor pagination (created_at, id) < (cursor.t, cursor.id). Using raw SQL gave me absolute control over the indexes and query performance.
+* Cursor Pagination: I implemented cursor-based pagination instead of OFFSET/LIMIT. This ensures that even if 50 new products are inserted while a user is browsing, the UI won't skip or duplicate items.
+* Batch Seeding: I wrote seed.js to insert the 200,000 records in batches of 1,000 using tagged template literals in postgres.js. This ran exponentially faster than individual inserts.
+
+What I'd improve with more time:
+* I would add Redis caching for the most frequently accessed routes (like the default "first page" of all products) to take the load off the database.
+* I'd implement API Rate Limiting to prevent abuse.
+* Add comprehensive unit/integration tests using a tool like Jest or Supertest.
+
+How I used AI & what I caught:
+* I used AI as an architectural sounding board and to quickly scaffold the Express boilerplate and batch-insert logic for seed.js. 
+* What I caught/fixed: During the pagination implementation, I realized that PostgreSQL stores timestamps with *microsecond* precision, but JavaScript `Date` objects only have *millisecond* precision. If we let JS parse the dates, we lose the microseconds. This means if two products were created in the exact same millisecond, the cursor could skip one! I fixed this by forcing Postgres to return the timestamp as text (`SELECT created_at::text`) so the cursor string retains absolute precision when fed back into the next query.
