@@ -16,7 +16,8 @@ function App() {
   const fetchProducts = async (currentCursor = null, currentCategory = 'All') => {
     try {
       setLoading(true);
-      const url = new URL(`${API_URL}/products`);
+      // Passing window.location.origin as the 2nd argument handles both relative ('') and absolute ('http...') URLs perfectly
+      const url = new URL(`${API_URL}/products`, window.location.origin);
       url.searchParams.append('limit', '20');
       
       if (currentCursor) {
